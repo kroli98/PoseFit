@@ -13,9 +13,16 @@ struct WeeklySummaryCardView: View {
                     .bold()
                 
                 Spacer()
-                
-                Text("\(totalWorkoutMinutes) perc")
-                    .font(.headline)
+                if(totalWorkoutDuration < 60)
+                {
+                    Text("\(totalWorkoutDuration) másodperc")
+                        .font(.headline)
+                }
+                else{
+                    Text("kb. \(Int(ceil(Double(totalWorkoutDuration)/60))) perc")
+                        .font(.headline)
+                }
+              
             }
             .padding(.horizontal)
             
@@ -76,9 +83,9 @@ struct WeeklySummaryCardView: View {
         }
     }
     
-    var totalWorkoutMinutes: Int {
+    var totalWorkoutDuration: Int {
         let totalSeconds = completedExercises.reduce(0) { $0 + (Int($1.elapsedExerciseTime)) }
-        return totalSeconds / 60 
+        return totalSeconds
     }
 
     let dayFormatter: DateFormatter = {

@@ -80,6 +80,16 @@ PODS:
   - SDWebImage/Core (5.18.7)
   - SDWebImageSwiftUI (2.2.6):
     - SDWebImage (~> 5.10)
+  - TensorFlowLiteC (2.14.0):
+    - TensorFlowLiteC/Core (= 2.14.0)
+  - TensorFlowLiteC/Core (2.14.0)
+  - TensorFlowLiteC/CoreML (2.14.0):
+    - TensorFlowLiteC/Core
+  - TensorFlowLiteSwift/Core (2.14.0):
+    - TensorFlowLiteC (= 2.14.0)
+  - TensorFlowLiteSwift/CoreML (2.14.0):
+    - TensorFlowLiteC/CoreML (= 2.14.0)
+    - TensorFlowLiteSwift/Core (= 2.14.0)
 
 DEPENDENCIES:
   - GoogleMLKit/PoseDetection
@@ -87,6 +97,7 @@ DEPENDENCIES:
   - GoogleMLKit/SegmentationSelfie
   - PromisesObjC
   - SDWebImageSwiftUI
+  - TensorFlowLiteSwift/CoreML
 
 SPEC REPOS:
   trunk:
@@ -109,6 +120,8 @@ SPEC REPOS:
     - PromisesObjC
     - SDWebImage
     - SDWebImageSwiftUI
+    - TensorFlowLiteC
+    - TensorFlowLiteSwift
 
 SPEC CHECKSUMS:
   GoogleDataTransport: 57c22343ab29bc686febbf7cbb13bad167c2d8fe
@@ -130,7 +143,9 @@ SPEC CHECKSUMS:
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   SDWebImage: f9258c58221ed854cfa0e2b80ee4033710b1c6d3
   SDWebImageSwiftUI: 3a8448b76833ed0e954a651be6c6f45faceed29d
+  TensorFlowLiteC: a836de9b6e6018665ccc349538bdd2c3b80dd7a5
+  TensorFlowLiteSwift: f706b143b69d7bf433aba7b08049bdd11c321a10
 
-PODFILE CHECKSUM: d9329f39fcfa83e2cd91f71b7a1256a3758265e6
+PODFILE CHECKSUM: 8c3c32e5e0007e647bee2ec119344c0bde9be7a7
 
 COCOAPODS: 1.14.3

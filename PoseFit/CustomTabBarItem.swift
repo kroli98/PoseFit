@@ -52,7 +52,7 @@ enum CustomTabBarItem: TabBarItemProtocol {
                 .setupCustomTab(tab: CustomTabBarItem.settings)
             
         case .analysis:
-                AnalysisView()
+            AnalyticsView()
                 .frame(maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
                 .setupCustomTab(tab: CustomTabBarItem.analysis)
         }

@@ -6,10 +6,14 @@ import CoreMotion
 import CoreData
 import SDWebImageSwiftUI
 import AVFoundation
+import HealthKit
 
 struct InWorkoutView: View {
     
+    @State var lastFeedbackMessages: [String] = []
+    @State var lastSpokenFeedback: String? = nil
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) private var viewContext
     @State private var isAnimating = true
     @State private var isCameraViewBig: Bool = true
     @StateObject private var poseDetectionManager = PoseDetectionManager()
@@ -40,6 +44,8 @@ struct InWorkoutView: View {
     let motionManager = CMMotionManager()
     @State private var navigateToFinishWorkoutView = false
     @State private var savedExercises: [ExerciseData] = []
+    @State var newWorkout = Workout(context: PersistenceController.shared.container.viewContext)
+
 
     
     
@@ -49,13 +55,12 @@ struct InWorkoutView: View {
         repetitionCounter.isDisabled = true
         exerciseAnalyzer.isDisabled = true
         poseDetectionManager.isDisabled = true
-       
-        
-       
+        newWorkout.date = Date()
+    
        
     }
+  
 
-    
     
     var body: some View {
         
@@ -64,28 +69,41 @@ struct InWorkoutView: View {
                 
                 Spacer()
                 VStack{
-                    Text(lastFeedbackMessage ?? timeFormatted(elapsedSeconds))
-                        .font((lastFeedbackMessage != nil) ? .title3: .largeTitle)
                     
+                    if(lastFeedbackMessage != nil)
+                     {
+                        Text(lastFeedbackMessage ?? "")
+                            .font((lastFeedbackMessage != nil) ? .title3: .largeTitle)
+                            .padding(.horizontal,10)
+                            .padding(.vertical,5)
+                            .background(
+                             RoundedRectangle(cornerRadius: 20.0, style: .continuous)
+                                 .fill(Color.gray)
+                                 .foregroundColor(Color(UIColor.systemBackground))
+                                 .shadow(radius: 15)
+                            )
+                    }
+                        Spacer()
                     
+                        Text(timeFormatted(elapsedSeconds))
+                            .font((lastFeedbackMessage != nil) ? .title3: .largeTitle)
+                            .padding(.horizontal,10)
+                            .padding(.vertical,5)
+                            .background(
+                                RoundedRectangle(cornerRadius: 20.0, style: .continuous)
+                                    .fill(Color.gray)
+                                    .foregroundColor(Color(UIColor.systemBackground))
+                                    .shadow(radius: 15)
+                                    
+                            )
+                
                     
-                        .padding(.horizontal,10)
-                        .padding(.vertical,5)
-                        .background(
-                            RoundedRectangle(cornerRadius: 20.0, style: .continuous)
-                                .fill(Color.gray)
-                                .foregroundColor(Color(UIColor.systemBackground))
-                                .shadow(radius: 15)
-                        )
-                    
+                  
                   
                     Spacer()
                     
                     workoutView
                         .frame(width: geometry.size.width, height: geometry.size.width * (4/3))
-                       
-                    
-                    
                         .blur(radius: (isDeviceMoving && !isCountingDown) || (poseDetectionManager.detectionFailed && !isCountingDown) ? 5 : 0)
                         .overlay(pauseButton, alignment: .topTrailing)
                         .overlay(counterView, alignment: .topLeading)
@@ -129,6 +147,9 @@ struct InWorkoutView: View {
                 }
                 .onDisappear{
                     UIApplication.shared.isIdleTimerDisabled = false
+                  print("Disappered")
+                    synthesizer.stopSpeaking(at: .immediate)
+                    
                 }
                 
                 
@@ -178,7 +199,7 @@ struct InWorkoutView: View {
             }
             .onChange(of: exerciseElapsedSeconds) { elapsedsec in
                 let ce = organizedExercisesGroups[currentGroup][currentExercise]
-                if ((ce.name == "Plank") && (ce.duration ?? 0 <= elapsedsec)) {
+                if ((ce.name == "Plank") && (ce.duration ?? 0 == elapsedsec)) {
                     organizedExercisesGroups[currentGroup][currentExercise].isCompleted = true
                     completeExercise(isFinishedPressed: false)
                     
@@ -207,50 +228,41 @@ struct InWorkoutView: View {
             .onReceive(exerciseAnalyzer.$feedbacks) { newFeedbacks in
                 withAnimation {
                     if !newFeedbacks.isEmpty && !isCountingDown {
-                        for (i, feedback) in newFeedbacks.enumerated() {
-                            if !lastFeedbacks.contains(feedback) {
-                                
-                                let delay = i == 0 ? 0 : Double(i) * 3
-                                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                        var totalDelay: Double = 0
+                        
+
+                        for feedback in newFeedbacks {
+                            if feedback != lastSpokenFeedback && !lastFeedbackMessages.contains(feedback){
+                                let delayForCurrentFeedback = totalDelay
+                                let displayDuration: Double = 1.0
+
+                                DispatchQueue.main.asyncAfter(deadline: .now() + delayForCurrentFeedback) {
                                     self.lastFeedbackMessage = feedback
-                                    speak(text: feedback)
+                                    
+                                  
+                                    lastSpokenFeedback = feedback
                                 }
-                                
-                                
-                                
-                                
-                                
-                            }
-                            lastFeedbacks.append(feedback)
-                            
-                        }
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + Double(newFeedbacks.count) * 3) {
-                            self.lastFeedbackMessage = nil
-                            if lastFeedbacks.count > 2 {
-                                lastFeedbacks.removeFirst()
+
+                                DispatchQueue.main.asyncAfter(deadline: .now() + delayForCurrentFeedback + displayDuration) {
+                                    if self.lastFeedbackMessage == feedback {
+                                        self.lastFeedbackMessage = nil
+                                    }
+                                }
+
+                                totalDelay += displayDuration
                             }
                         }
+                        lastFeedbackMessages = newFeedbacks
                     }
                 }
             }
+
+
             
             
             
             
-            .onChange(of: exerciseElapsedSeconds) { _ in
-                let currentExerciseObj = organizedExercisesGroups[currentGroup][currentExercise]
-                if currentExerciseObj.name == "Plank" && currentExerciseObj.duration == exerciseElapsedSeconds {
-                    completeExercise(isFinishedPressed: false)
-                    if(!organizedExercisesGroups.allSatisfy({
-                        group in group.allSatisfy{$0.isCompleted}
-                    }))
-                    {
-                        
-                        nextExercise()
-                    }
-                }
-            }
+           
           
            
         
@@ -265,7 +277,8 @@ struct InWorkoutView: View {
         
         
     }
-    
+ 
+
   
     var movementDetectionOverlay: some View {
         Group {
@@ -335,9 +348,13 @@ struct InWorkoutView: View {
                        
                     
                 } else  {
-                    AnimatedImage(name: gifname, isAnimating: $isAnimating)
-                        .mask(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                        .frame(width: .infinity, height: .infinity)
+                    if((gifname) != nil)
+                    {
+                        AnimatedImage(name: gifname!, isAnimating: $isAnimating)
+                            .mask(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                            .frame(width: .infinity, height: .infinity)
+                    }
+                   
                       
                 }
             }
@@ -388,7 +405,10 @@ struct InWorkoutView: View {
                     .padding(.horizontal,10)
                     .padding(.vertical,5)
                     .onChange(of: repetitionCounter.repCounter, {
-                        exerciseAnalyzer.setShouldResetTrue()
+                        if(repetitionCounter.repCounter != 0)
+                        {
+                            exerciseAnalyzer.setShouldResetTrue()
+                        }
                     })
                 
                 
@@ -425,7 +445,7 @@ struct InWorkoutView: View {
                                    .frame(maxWidth: .infinity)
                            }
                        }
-                       .background(.white)
+                       .background(Color(UIColor.secondarySystemFill))
                        .opacity(0.8)
                        .cornerRadius(10.0)
                    }
@@ -613,6 +633,13 @@ struct InWorkoutView: View {
         isCountingDown = true
         showCountdownText = true
         countdownSeconds = 10
+        lastFeedbacks = []
+        lastSpokenFeedback = nil
+        lastFeedbackMessage = nil
+        lastFeedbackMessages = []
+        exerciseAnalyzer.shouldReset = false
+        exerciseAnalyzer.feedbacks = []
+        
        
         
         if increment {
@@ -640,7 +667,7 @@ struct InWorkoutView: View {
                 
             }
         }
-        let currentExercise = organizedExercisesGroups[currentGroup][currentExercise]
+       
         
      
       
@@ -650,7 +677,7 @@ struct InWorkoutView: View {
   
 
 
-    func gifNameForExercise(_ exerciseName: String) -> String {
+    func gifNameForExercise(_ exerciseName: String) -> String? {
         switch exerciseName {
             case "Fekvőtámasz":
                 return "pushup.gif"
@@ -660,7 +687,7 @@ struct InWorkoutView: View {
         case "Felülés":
             return "situp.gif"
         default:
-                   return ""
+                   return nil
          
            
         }
@@ -802,7 +829,7 @@ struct InWorkoutView: View {
     func stopCountdownTimer() {
         countdownTimer?.invalidate()
         countdownTimer = nil
-        startMotionUpdates()
+        //startMotionUpdates()
         startStationaryTimer()
        
     }
@@ -893,21 +920,40 @@ struct InWorkoutView: View {
    
 
     func saveCompletedExercise(name: String, correctness: Double, date: Date, repetition: Int, series: Int, elapsedExerciseTime: Int) {
-        let newExercise = CompletedExercise(context: PersistenceController.shared.container.viewContext)
-        newExercise.name = name
-        newExercise.correctness = correctness
-        newExercise.date = date
-        newExercise.repetition = Int32(repetition)
-        newExercise.series = Int32(series)
-        newExercise.elapsedExerciseTime = Int32(elapsedExerciseTime)
-
-        do {
-            try PersistenceController.shared.container.viewContext.save()
-            let exerciseData = ExerciseData(name: name, elapsedTime: Int(elapsedExerciseTime), repetitions: repetition, series: series, correctness: correctness)
-                   savedExercises.append(exerciseData)
-        } catch {
-            print("Hiba történt az adatok mentésekor: \(error)")
-        }
+        
+        guard !name.isEmpty else {
+               print("Invalid exercise data. Not saving.")
+               return
+           }
+            
+            let newExercise = CompletedExercise(context: PersistenceController.shared.container.viewContext)
+            newExercise.name = name
+            newExercise.correctness = correctness
+            newExercise.date = date
+            newExercise.repetition = Int32(repetition)
+            newExercise.series = Int32(series)
+            newExercise.elapsedExerciseTime = Int32(elapsedExerciseTime)
+            
+            newWorkout.addToWorkoutToCompletedExercise(newExercise)
+            
+        
+            do {
+                try PersistenceController.shared.container.viewContext.save()
+                let exerciseData = ExerciseData(name: name, elapsedTime: Int(elapsedExerciseTime), repetitions: repetition, series: series, correctness: correctness)
+                savedExercises.append(exerciseData)
+            } catch {
+                print("Hiba történt az adatok mentésekor: \(error)")
+            }
+        
+   
+            let fetchRequest: NSFetchRequest<Workout> = Workout.fetchRequest()
+            do {
+                let items = try viewContext.fetch(fetchRequest)
+                print(items)
+            } catch {
+                print("Error fetching data: \(error)")
+            }
+        
     }
     func speak(text: String, language: String = "hu-HU") {
         let utterance = AVSpeechUtterance(string: text)

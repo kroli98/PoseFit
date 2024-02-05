@@ -1,12 +1,15 @@
 
 import AVFoundation
 import SwiftUI
+import CoreData
 
 
 struct HomeView: View {
    
     @State var name: String = "Ismeretlen"
     @EnvironmentObject var navigationCoordinator: NavigationCoordinator
+    @Environment(\.managedObjectContext) private var viewContext
+
   
 
 
@@ -34,6 +37,14 @@ struct HomeView: View {
           
             name = UserDefaults.standard.string(forKey: "UserName") ?? "Ismeretlen"
             navigationCoordinator.isNavigating = false
+            
+            let fetchRequest: NSFetchRequest<Workout> = Workout.fetchRequest()
+            do {
+                let items = try viewContext.fetch(fetchRequest)
+                print(items)
+            } catch {
+                print("Error fetching data: \(error)")
+            }
         }
     }
 }

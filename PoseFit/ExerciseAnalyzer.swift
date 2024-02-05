@@ -3,14 +3,19 @@
 import Foundation
 import CoreGraphics
 import MLKit
+import CoreML
+
 
 class ExerciseAnalyzer: ObservableObject {
     
-    private var lastAnalysisTime = Date()
+    private var lastFeedbackTime = Date()
     @Published var feedbacks: [String] = []
     @Published var isUserInactive: Bool = false
     private var totalFeedbacks = 0
     private var positiveFeedbacks = 0
+   
+   
+
   
 
     var keyPointTriples: [(String, String, String)] = []
@@ -26,6 +31,9 @@ class ExerciseAnalyzer: ObservableObject {
   
     var userAngles: [Double] = []
     var referenceAngles: [[Double]] = []
+    
+    var analysisTimer: Timer?
+        let analysisInterval: TimeInterval = 5
    
     
 
@@ -64,37 +72,53 @@ class ExerciseAnalyzer: ObservableObject {
     
     func addUserPose(pose: Pose) {
        
-        if((exerciseName != "" ) && !(isDisabled))
-        {
-            
-            for (jointA, jointB, jointC) in keyPointTriples {
-                let landmarkTypeA = PoseLandmarkType(rawValue: jointA)
-                let landmarkTypeB = PoseLandmarkType(rawValue: jointB)
-                let landmarkTypeC = PoseLandmarkType(rawValue: jointC)
-                
-                
-                let landmarkA = pose.landmark(ofType: landmarkTypeA)
-                let landmarkB = pose.landmark(ofType: landmarkTypeB)
-                let landmarkC = pose.landmark(ofType: landmarkTypeC)
-                
-                if(!(landmarkA.inFrameLikelihood > 0.7) && !(landmarkB.inFrameLikelihood > 0.7) && !(landmarkC.inFrameLikelihood > 0.7))
-                {
-                   
-                    return
-                }
-                else{
-                    self.poses.append(pose)
-                    
-                }
-            }
+        if (exerciseName != "" ) && !(isDisabled) {
+              var allTripletsAboveThreshold = true
+
+              for (jointA, jointB, jointC) in keyPointTriples {
+                  let landmarkTypeA = PoseLandmarkType(rawValue: jointA)
+                  let landmarkTypeB = PoseLandmarkType(rawValue: jointB)
+                  let landmarkTypeC = PoseLandmarkType(rawValue: jointC)
+
+                  let landmarkA = pose.landmark(ofType: landmarkTypeA)
+                  let landmarkB = pose.landmark(ofType: landmarkTypeB)
+                  let landmarkC = pose.landmark(ofType: landmarkTypeC)
+
+                  
+                  if landmarkA.inFrameLikelihood <= 0.7 || landmarkB.inFrameLikelihood <= 0.7 || landmarkC.inFrameLikelihood <= 0.7 {
+                      allTripletsAboveThreshold = false
+                      break
+                  }
+              }
+
+              if allTripletsAboveThreshold {
+                  self.poses.append(pose)
+                  print("Added")
+              }
+          
          
             
           
           
             DispatchQueue.global(qos: .userInteractive).async {
-              
-              
+                if(self.exerciseName == "Plank")
+                {
+                    let currentTime = Date()
+                    if currentTime.timeIntervalSince(self.lastFeedbackTime) >= 5.0 {
+                        
+                        self.analyzeExercise()
+                        self.lastFeedbackTime = Date()
+                        self.poses = []
+                        
+                    }
+                }
+                else{
                     self.analyzeExercise()
+                }
+              
+                    
+                 
+                
                 }
         }
     }
@@ -149,6 +173,11 @@ class ExerciseAnalyzer: ObservableObject {
                 return angle
             }
             anglesUser.append(anglesForJointTriple)
+           
+        
+         
+            
+            
             
         
 
@@ -165,8 +194,9 @@ class ExerciseAnalyzer: ObservableObject {
         {
             
             for( i, fa) in filteredAnglesUser.enumerated() {
+                
                
-               
+             
                  
                     let dtwDistance = computeDTWDistance(sequence1: referenceAngles[i], sequence2: fa)
                     let feedback = generateFeedback(angleDifference: dtwDistance, joints: keyPointTriples[i],index: i, filteredAnglesUser: filteredAnglesUser[i])
@@ -178,7 +208,10 @@ class ExerciseAnalyzer: ObservableObject {
                     print("Szűrt felhasználói szögek: \(filteredAnglesUser[i])")
                     print("Kulcspontok: (\(keyPointTriples[i].0), \(keyPointTriples[i].1), \(keyPointTriples[i].2)), DTW Távolság: \(dtwDistance), Visszajelzés: \(feedback)")
                     
+                
                     if !newFeedbacks.isEmpty {
+                        
+                        
                         DispatchQueue.main.async {
                             self.feedbacks = newFeedbacks
                         }
@@ -203,7 +236,7 @@ class ExerciseAnalyzer: ObservableObject {
                 
                 //print(referenceAngles[i])
                 //print(fa)
-                print(keyPointTriples[i])
+                //print(keyPointTriples[i])
                 print(fa)
                
                 //let trendChange = checkForTrendChange(in: fa, windowSize: 5) ?? false
@@ -228,8 +261,13 @@ class ExerciseAnalyzer: ObservableObject {
                     print("Felhasználói szögek: \(anglesUser[i])")
                     print("Szűrt felhasználói szögek: \(fa)")
                     print("Kulcspontok: (\(keyPointTriples[i].0), \(keyPointTriples[i].1), \(keyPointTriples[i].2)), DTW Távolság: \(dtwDistance), Visszajelzés: \(feedback)")
-                    occured = true
                     
+                    if(similarityCheck && !(refmax == refmin))
+                    {
+                        occured = true
+                        
+                    }
+
                     
                 }
               
@@ -239,7 +277,11 @@ class ExerciseAnalyzer: ObservableObject {
                 if !newFeedbacks.isEmpty  {
                    
                     DispatchQueue.main.async{
+                     
+                  
+                        
                         self.feedbacks = newFeedbacks
+                        print(self.feedbacks)
                     }
                     print("RESET")
                     shouldReset = false
@@ -366,18 +408,23 @@ class ExerciseAnalyzer: ObservableObject {
     }
 
 
-    
+   
 
      func generateFeedback(angleDifference: Double, joints: (String,String,String), index: Int, filteredAnglesUser: [Double]) -> String {
         totalFeedbacks += 1
+         
+         let side = joints.0.contains("Left") ? "bal" : "jobb"
         
         if exerciseName == "Fekvőtámasz" {
             
                if joints == ("RightShoulder", "RightElbow", "RightWrist") || joints == ("LeftShoulder", "LeftElbow", "LeftWrist") {
+                   
+               
+                   
                    if angleDifference > thresholdValue {
                        let userMinAngle = filteredAnglesUser.min() ?? 0
                           let referenceMinAngle = referenceAngles[index].min() ?? 0
-                          let tolerance = 15.0
+                          let tolerance = 20.0
 
                           if userMinAngle > referenceMinAngle + tolerance {
                               return "Hajlítsd jobban a karodat!"
@@ -418,6 +465,32 @@ class ExerciseAnalyzer: ObservableObject {
                     return "Jó a csípőmagasságod!"
                 }
             }
+            if joints ==  ("LeftHip", "LeftKnee", "LeftAnkle") || joints ==  ("RightHip", "RightKnee", "RightAnkle"){
+                if angleDifference > thresholdValue {
+                    
+                  
+                    let userMaxAngle = filteredAnglesUser.max() ?? 180
+                    let referenceMaxAngle = referenceAngles[index].max() ?? 180
+                    
+                       let tolerance = 15.0
+
+                    if angleDifference > thresholdValue {
+                         if userMaxAngle < referenceMaxAngle - tolerance {
+                            return "Tartsd egyenesen a lábaid!"
+                        } else {
+                            positiveFeedbacks += 1
+                            return "Jól tartod a lábaid!"
+                        }
+                    }
+                     
+                    
+                } else {
+                    positiveFeedbacks += 1
+                    return "Jól tartod a lábaid!"
+                }
+            }
+            
+            
             
            }
         if exerciseName == "Guggolás" {
@@ -425,7 +498,7 @@ class ExerciseAnalyzer: ObservableObject {
                    if angleDifference > thresholdValue {
                        let userMinAngle = filteredAnglesUser.min() ?? 0
                           let referenceMinAngle = referenceAngles[index].min() ?? 0
-                          let tolerance = 30.0
+                          let tolerance = 40.0
 
                           if userMinAngle > referenceMinAngle + tolerance {
                               return "Mélyebbre kell guggolnod!"
@@ -447,7 +520,7 @@ class ExerciseAnalyzer: ObservableObject {
                 let userMaxAngle = filteredAnglesUser.max() ?? 180
                 let referenceMinAngle = referenceAngles[index].min() ?? 0
                 let referenceMaxAngle = referenceAngles[index].max() ?? 180
-                let tolerance = 15.0
+                let tolerance = 30.0
                 
                 if angleDifference > thresholdValue {
                     if userMinAngle > referenceMinAngle + tolerance {
@@ -486,24 +559,46 @@ class ExerciseAnalyzer: ObservableObject {
                 
             }
         }
+         if exerciseName == "Felhúzás" {
+             
+             if joints == ("RightShoulder", "RightElbow", "RightWrist") || joints == ("LeftShoulder", "LeftElbow", "LeftWrist") {
+                 
+                 let userMinAngle = filteredAnglesUser.min() ?? 0
+                 let referenceMinAngle = referenceAngles[index].min() ?? 0
+                 let tolerance = 20.0
+                 
+                 if angleDifference > thresholdValue {
+                     if userMinAngle > referenceMinAngle + tolerance  {
+                         
+                         return "Húzd fel magad magasabbra!"
+                     } else {
+                         positiveFeedbacks += 1
+                         return "Jól csinálod!"
+                     }
+                 }
+                 positiveFeedbacks += 1
+                 return "Jól csinálod!"
+             }
+         }
 
         if exerciseName == "Plank" {
-            if joints == ("LeftShoulder", "LeftHip", "LeftAnkle") || joints == ("RightShoulder", "RightHip", "RightAnkle") {
-                      let userMaxAngle = filteredAnglesUser.max() ?? 0
+            if joints == ("LeftShoulder", "LeftHip", "LeftKnee") || joints == ("RightShoulder", "RightHip", "RightKnee") {
+                    let averageAngle = filteredAnglesUser.reduce(0, +) / Double(filteredAnglesUser.count)
+
                       let referenceMaxAngle = referenceAngles[index].max() ?? 0
-                      let tolerance = 15.0
+                let tolerance = 10.0
                 
                       if angleDifference > thresholdValue {
-                           if userMaxAngle < referenceMaxAngle - tolerance {
+                           if averageAngle < referenceMaxAngle - tolerance {
                               return "Tartsd egyenesen a törzsed!"
                           } else {
                               positiveFeedbacks += 1
-                              return "Kiváló plank tartás!"
+                              return "Nagyszerű plank tartás!"
                           }
                       }
              else {
                 positiveFeedbacks += 1
-                return "Kiváló plank tartás!"
+                return "Nagyszerű plank tartás!"
             }
                   }
 

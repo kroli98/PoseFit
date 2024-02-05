@@ -27,6 +27,8 @@ class PoseDetectionManager: ObservableObject {
             
             do {
             poses = try poseDetector.results(in: image)
+             
+                
         } catch let error {
             print("Failed to detect poses with error: \(error.localizedDescription).")
             

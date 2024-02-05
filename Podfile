@@ -10,6 +10,7 @@ target 'PoseFit' do
   pod 'GoogleMLKit/PoseDetectionAccurate'
   pod 'GoogleMLKit/SegmentationSelfie'
   pod 'PromisesObjC'
+  pod 'TensorFlowLiteSwift/CoreML'
 pod 'SDWebImageSwiftUI'
 
 

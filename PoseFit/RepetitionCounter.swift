@@ -39,6 +39,10 @@ class RepetitionCounter: ObservableObject {
             {
                 processSitups(from: pose)
             }
+            else if(exercise.name == "Felhúzás")
+            {
+                processPullUps(from: pose)
+            }
            
         }
         
@@ -65,7 +69,7 @@ class RepetitionCounter: ObservableObject {
     }
     func processSitups(from pose: Pose) {
         let startEndAngle: Double = 170.0
-        let middleAngle: Double = 110.0
+        let middleAngle: Double = 160.0
         let rightShoulder = pose.landmark(ofType: .rightShoulder)
         let rightHip = pose.landmark(ofType: .rightHip)
         let rightAnkle = pose.landmark(ofType: .rightAnkle)
@@ -169,6 +173,62 @@ class RepetitionCounter: ObservableObject {
             }
         }
     }
+    func processPullUps(from pose: Pose) {
+        // Az ideális szögek és az állapotváltások pontosítása a "Pull Up" gyakorlathoz
+        let startEndAngle: Double = 140.0 // Feltételezve, hogy magas szög jelzi a kezdő/befejező állapotot
+        let middleAngle: Double = 80.0 // Feltételezve, hogy alacsony szög jelzi a középső állapotot
+
+        let rightElbow = pose.landmark(ofType: .rightElbow)
+        let rightShoulder = pose.landmark(ofType: .rightShoulder)
+        let rightWrist = pose.landmark(ofType: .rightWrist)
+        let leftElbow = pose.landmark(ofType: .leftElbow)
+        let leftShoulder = pose.landmark(ofType: .leftShoulder)
+        let leftWrist = pose.landmark(ofType: .leftWrist)
+
+        if (rightShoulder.inFrameLikelihood > threshold &&
+            rightElbow.inFrameLikelihood > threshold &&
+            rightWrist.inFrameLikelihood > threshold &&
+            leftShoulder.inFrameLikelihood > threshold &&
+            leftElbow.inFrameLikelihood > threshold &&
+            leftWrist.inFrameLikelihood > threshold) {
+
+            let rightAngle = calculateAngle(
+                A: CGPoint(x: rightShoulder.position.x, y: rightShoulder.position.y),
+                B: CGPoint(x: rightElbow.position.x, y: rightElbow.position.y),
+                C: CGPoint(x: rightWrist.position.x, y: rightWrist.position.y)
+            )
+
+            let leftAngle = calculateAngle(
+                A: CGPoint(x: leftShoulder.position.x, y: leftShoulder.position.y),
+                B: CGPoint(x: leftElbow.position.x, y: leftElbow.position.y),
+                C: CGPoint(x: leftWrist.position.x, y: leftWrist.position.y)
+            )
+
+            let avg_angle = (rightAngle + leftAngle) / 2.0
+
+          
+            switch currentState {
+            case .start:
+                if avg_angle <= middleAngle {
+                    currentState = .middle
+                }
+            case .middle:
+                if avg_angle >= startEndAngle {
+                    currentState = .finished
+                }
+            case .finished:
+                if avg_angle > middleAngle {
+                    repCounter += 1
+                    currentState = .start
+                    print("Repetition count: \(repCounter)")
+                } else if avg_angle >= startEndAngle {
+                    currentState = .middle
+                }
+            }
+        }
+    }
+
+
 
 
     func processPushups(from pose: Pose) {

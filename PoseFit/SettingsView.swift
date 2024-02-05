@@ -2,6 +2,15 @@
 import SwiftUI
 import CoreData
 
+enum ActiveAlert: Identifiable {
+    case deleteConfirmation, missingData
+
+    var id: Int {
+        hashValue
+    }
+}
+
+
 struct SettingsView: View {
     @State private var name = ""
     @State private var height = ""
@@ -14,6 +23,8 @@ struct SettingsView: View {
     @State private var showingDeleteConfirmation = false
     @State private var deleteAction: (() -> Void)?
     @State private var shouldNavigateToFirstLaunch = false
+    @State private var activeAlert: ActiveAlert?
+
 
 
 
@@ -38,6 +49,7 @@ struct SettingsView: View {
                         Button(action: {
                             showingDeleteConfirmation = true
                             deleteAction = deleteAllExercises
+                            activeAlert = .deleteConfirmation
                             print("Első gomb lenyomva")
                         }) {
                             Text("Gyakorlati napló törlése")
@@ -48,6 +60,7 @@ struct SettingsView: View {
                         Button(action: {
                             showingDeleteConfirmation = true
                             deleteAction = deleteAllData
+                            activeAlert = .deleteConfirmation
                             print("Adatok törlése")
                         }) {
                             Text("Összes adat törlése")
@@ -72,6 +85,11 @@ struct SettingsView: View {
                                 }
                             }
                             
+                            if name.isEmpty || height.isEmpty || weight.isEmpty {
+                                showAlert = true
+                                activeAlert = .missingData
+                                return
+                            }
                             saveUserSettings()
                         }) {
                             Text("Mentés")
@@ -119,21 +137,22 @@ struct SettingsView: View {
                 
                 
             }
-            .alert(isPresented: $showingDeleteConfirmation) {
-                Alert(
-                    title: Text("Megerősítés"),
-                    message: Text("Biztosan törölni szeretné az adatokat?"),
-                    primaryButton: .destructive(Text("Törlés")) {
-                        deleteAction?()
-                    },
-                    secondaryButton: .cancel(Text("Mégsem"))
-                )
-                
-                
+            .alert(item: $activeAlert) { currentAlert in
+                switch currentAlert {
+                case .deleteConfirmation:
+                    return Alert(
+                        title: Text("Megerősítés"),
+                        message: Text("Biztosan törölni szeretné az adatokat?"),
+                        primaryButton: .destructive(Text("Törlés")) {
+                            deleteAction?()
+                        },
+                        secondaryButton: .cancel(Text("Mégsem"))
+                    )
+                case .missingData:
+                    return Alert(title: Text("Hiányzó adatok"), message: Text("Kérjük, töltse ki az összes mezőt."), dismissButton: .default(Text("OK")))
+                }
             }
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Hiányzó adatok"), message: Text("Kérjük, töltse ki az összes mezőt."), dismissButton: .default(Text("OK")))
-            }
+
        
      
 
@@ -151,45 +170,49 @@ struct SettingsView: View {
         
     
     func deleteAllExercises() {
-           let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CompletedExercise.fetchRequest()
-           let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-           do {
-               try viewContext.execute(batchDeleteRequest)
-           } catch {
-               print("Error deleting exercises: \(error)")
-          
-           }
-       }
-    
-    func deleteAllData() {
-     
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CompletedExercise.fetchRequest()
-        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        let fetchRequestExercises: NSFetchRequest<NSFetchRequestResult> = CompletedExercise.fetchRequest()
+        let batchDeleteRequestExercises = NSBatchDeleteRequest(fetchRequest: fetchRequestExercises)
+
+        let fetchRequestWorkouts: NSFetchRequest<NSFetchRequestResult> = Workout.fetchRequest()
+        let batchDeleteRequestWorkouts = NSBatchDeleteRequest(fetchRequest: fetchRequestWorkouts)
+
         do {
-            try viewContext.execute(batchDeleteRequest)
+            try viewContext.execute(batchDeleteRequestExercises)
+            try viewContext.execute(batchDeleteRequestWorkouts)
         } catch {
             print("Error deleting exercises: \(error)")
         }
+       }
+    
+    func deleteAllData() {
+        let fetchRequestExercises: NSFetchRequest<NSFetchRequestResult> = CompletedExercise.fetchRequest()
+        let batchDeleteRequestExercises = NSBatchDeleteRequest(fetchRequest: fetchRequestExercises)
 
-      
+        let fetchRequestWorkouts: NSFetchRequest<NSFetchRequestResult> = Workout.fetchRequest()
+        let batchDeleteRequestWorkouts = NSBatchDeleteRequest(fetchRequest: fetchRequestWorkouts)
+
+        do {
+            try viewContext.execute(batchDeleteRequestExercises)
+            try viewContext.execute(batchDeleteRequestWorkouts)
+        } catch {
+            print("Error deleting data: \(error)")
+        }
+
         UserDefaults.standard.removeObject(forKey: "UserName")
         UserDefaults.standard.removeObject(forKey: "UserHeight")
         UserDefaults.standard.removeObject(forKey: "UserWeight")
         UserDefaults.standard.removeObject(forKey: "UserBirthDate")
         UserDefaults.standard.removeObject(forKey: "UserGender")
 
-      
         name = ""
         height = ""
         weight = ""
         birthday = Date()
         selectedGender = .male
-        
-        shouldNavigateToFirstLaunch = true
 
-     
-        
+        shouldNavigateToFirstLaunch = true
     }
+
 
 
     func loadUserSettings() {

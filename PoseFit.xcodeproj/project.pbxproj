@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		368C3C914B52E35CA02FFA91 /* Pods_PoseFit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539A6515AD94B5FA31A292B6 /* Pods_PoseFit.framework */; };
 		B3A59C6A41EAD0A18E9303FA /* Pods_PoseFitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D8F2B12313497F17C570F6 /* Pods_PoseFitTests.framework */; };
-		E8070BEF2B0F9D7F0079B632 /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8070BEE2B0F9D7F0079B632 /* AnalysisView.swift */; };
+		E8070BEF2B0F9D7F0079B632 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8070BEE2B0F9D7F0079B632 /* AnalyticsView.swift */; };
 		E81AD7262B221A2300CBDAFD /* PoseFitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81AD7252B221A2300CBDAFD /* PoseFitUITests.swift */; };
 		E81AD7282B221A2300CBDAFD /* PoseFitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81AD7272B221A2300CBDAFD /* PoseFitUITestsLaunchTests.swift */; };
 		E82E840A2B238F3000E2EAD3 /* pushup.gif in Resources */ = {isa = PBXBuildFile; fileRef = E82E84092B238F3000E2EAD3 /* pushup.gif */; };
@@ -75,7 +75,7 @@
 		5C9F6E33DFD046DDFDF77D60 /* Pods-PoseFitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoseFitTests.debug.xcconfig"; path = "Target Support Files/Pods-PoseFitTests/Pods-PoseFitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A98CAA042D8003F7ADCE0C5A /* Pods-PoseFitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoseFitTests.release.xcconfig"; path = "Target Support Files/Pods-PoseFitTests/Pods-PoseFitTests.release.xcconfig"; sourceTree = "<group>"; };
 		DF46E46C06B0567F8E0B1E39 /* Pods-PoseFit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoseFit.release.xcconfig"; path = "Target Support Files/Pods-PoseFit/Pods-PoseFit.release.xcconfig"; sourceTree = "<group>"; };
-		E8070BEE2B0F9D7F0079B632 /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
+		E8070BEE2B0F9D7F0079B632 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		E81AD7232B221A2200CBDAFD /* PoseFitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoseFitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E81AD7252B221A2300CBDAFD /* PoseFitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseFitUITests.swift; sourceTree = "<group>"; };
 		E81AD7272B221A2300CBDAFD /* PoseFitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseFitUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -90,6 +90,8 @@
 		E847CB7D2AA8847E00C47E55 /* InWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InWorkoutView.swift; sourceTree = "<group>"; };
 		E848F3ED2B247A550069A697 /* plank.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = plank.jpeg; sourceTree = "<group>"; };
 		E84AC1002B2CF22A0072CC17 /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
+		E85171C12B5D510400343622 /* PoseFitDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PoseFitDebug.entitlements; sourceTree = "<group>"; };
+		E85171C22B5D52F400343622 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E85384BB2B12B81400A35C26 /* WeeklyChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChartView.swift; sourceTree = "<group>"; };
 		E85384BD2B12BC1400A35C26 /* WorkoutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutData.swift; sourceTree = "<group>"; };
 		E86101C72AF7AA3A0092D815 /* ExerciseAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseAnalyzer.swift; sourceTree = "<group>"; };
@@ -205,6 +207,8 @@
 		E847CB692AA883D500C47E55 /* PoseFit */ = {
 			isa = PBXGroup;
 			children = (
+				E85171C22B5D52F400343622 /* Info.plist */,
+				E85171C12B5D510400343622 /* PoseFitDebug.entitlements */,
 				E848F3ED2B247A550069A697 /* plank.jpeg */,
 				E8DD4CBD2B246C0B00C95251 /* squat.gif */,
 				E8DD4CBB2B246BFE00C95251 /* situp.gif */,
@@ -227,7 +231,7 @@
 				E8409A1C2AC087DB005CF66D /* PoseDetection.swift */,
 				E8EEFC1C2ADBF0F800FA3763 /* FirstLaunchView.swift */,
 				E8EEFC1E2ADC46A800FA3763 /* RepetitionCounter.swift */,
-				E8070BEE2B0F9D7F0079B632 /* AnalysisView.swift */,
+				E8070BEE2B0F9D7F0079B632 /* AnalyticsView.swift */,
 				E8DEFC9A2B122F680030DEEE /* WeeklySummaryCardView.swift */,
 				E85384BB2B12B81400A35C26 /* WeeklyChartView.swift */,
 				E85384BD2B12BC1400A35C26 /* WorkoutData.swift */,
@@ -552,7 +556,7 @@
 				E8CF9A982AB9947200645DB1 /* CustomTabBarItem.swift in Sources */,
 				E8CF9A992AB9947200645DB1 /* CustomTabButton.swift in Sources */,
 				E8CF9A9D2AB9947200645DB1 /* UITabBar+Extensions.swift in Sources */,
-				E8070BEF2B0F9D7F0079B632 /* AnalysisView.swift in Sources */,
+				E8070BEF2B0F9D7F0079B632 /* AnalyticsView.swift in Sources */,
 				E847CB6B2AA883D500C47E55 /* PoseGymApp.swift in Sources */,
 				E8409A1D2AC087DB005CF66D /* PoseDetection.swift in Sources */,
 				E870EA052B14E2F100E91C78 /* MonthlyChartView.swift in Sources */,
@@ -770,6 +774,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PoseFit/PoseFitDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -809,8 +814,9 @@
 					"${PODS_ROOT}/GoogleMLKit/MLKitCore/Sources",
 					"\"${PODS_ROOT}/Headers/Public/MLKitCommon\"",
 				);
+				INFOPLIST_FILE = PoseFit/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Hozzáférésre van szükségünk a kamerádhoz az edzések elemzése érdekében";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -882,8 +888,9 @@
 					"${PODS_ROOT}/GoogleMLKit/MLKitCore/Sources",
 					"\"${PODS_ROOT}/Headers/Public/MLKitCommon\"",
 				);
+				INFOPLIST_FILE = PoseFit/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Hozzáférésre van szükségünk a kamerádhoz az edzések elemzése érdekében";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -14,8 +14,8 @@
             filePath = "PoseFit/InWorkoutView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "937"
-            endingLineNumber = "937"
+            startingLineNumber = "1035"
+            endingLineNumber = "1035"
             landmarkName = "saveCompletedExercise(name:correctness:date:repetition:series:elapsedExerciseTime:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "PoseFit/InWorkoutView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "InWorkoutView"
             landmarkType = "14">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "PoseFit/InWorkoutView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "922"
-            endingLineNumber = "922"
+            startingLineNumber = "1020"
+            endingLineNumber = "1020"
             landmarkName = "saveCompletedExercise(name:correctness:date:repetition:series:elapsedExerciseTime:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "PoseFit/InWorkoutView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "941"
-            endingLineNumber = "941"
+            startingLineNumber = "1039"
+            endingLineNumber = "1039"
             landmarkName = "saveCompletedExercise(name:correctness:date:repetition:series:elapsedExerciseTime:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -22,10 +22,17 @@
 		E847CB7E2AA8847E00C47E55 /* InWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E847CB7D2AA8847E00C47E55 /* InWorkoutView.swift */; };
 		E848F3EE2B247A550069A697 /* plank.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E848F3ED2B247A550069A697 /* plank.jpeg */; };
 		E84AC1012B2CF22A0072CC17 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84AC1002B2CF22A0072CC17 /* WorkoutDetailView.swift */; };
+		E84D6BF92B7928800037B36A /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E859DF712B77FB3B0067C9EE /* WatchConnectivityManager.swift */; };
 		E85384BC2B12B81400A35C26 /* WeeklyChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85384BB2B12B81400A35C26 /* WeeklyChartView.swift */; };
 		E85384BE2B12BC1400A35C26 /* WorkoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85384BD2B12BC1400A35C26 /* WorkoutData.swift */; };
+		E859DF722B77FB3B0067C9EE /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E859DF712B77FB3B0067C9EE /* WatchConnectivityManager.swift */; };
 		E870EA052B14E2F100E91C78 /* MonthlyChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E870EA042B14E2F100E91C78 /* MonthlyChartView.swift */; };
 		E871651F2AB9A07000C84E14 /* WorkoutLaunchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E871651E2AB9A07000C84E14 /* WorkoutLaunchCardView.swift */; };
+		E88C79952B76D9C4001D3828 /* PoseFitWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88C79942B76D9C4001D3828 /* PoseFitWatchApp.swift */; };
+		E88C79972B76D9C4001D3828 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88C79962B76D9C4001D3828 /* ContentView.swift */; };
+		E88C79992B76D9C6001D3828 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E88C79982B76D9C6001D3828 /* Assets.xcassets */; };
+		E88C799C2B76D9C6001D3828 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E88C799B2B76D9C6001D3828 /* Preview Assets.xcassets */; };
+		E88C799F2B76D9C6001D3828 /* PoseFitWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E88C79922B76D9C4001D3828 /* PoseFitWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E8B211E32B140FC9008E9CFD /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B211E22B140FC9008E9CFD /* NavigationCoordinator.swift */; };
 		E8B23E742B1A9209009706FD /* PoseFitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B23E732B1A9209009706FD /* PoseFitTests.swift */; };
 		E8C63FBA2B18ACA8003DAD6D /* ExerciseAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86101C72AF7AA3A0092D815 /* ExerciseAnalyzer.swift */; };
@@ -47,6 +54,8 @@
 		E8DD4CBE2B246C0B00C95251 /* squat.gif in Resources */ = {isa = PBXBuildFile; fileRef = E8DD4CBD2B246C0B00C95251 /* squat.gif */; };
 		E8DEFC992B122CDF0030DEEE /* PoseGym.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E8DEFC972B122CDF0030DEEE /* PoseGym.xcdatamodeld */; };
 		E8DEFC9B2B122F680030DEEE /* WeeklySummaryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DEFC9A2B122F680030DEEE /* WeeklySummaryCardView.swift */; };
+		E8DFA64A2B714C5300726481 /* PoseDetectionCoreML.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DFA6492B714C5300726481 /* PoseDetectionCoreML.swift */; };
+		E8DFA64E2B717A4B00726481 /* WorkoutSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DFA64D2B717A4B00726481 /* WorkoutSessionManager.swift */; };
 		E8EEFC1D2ADBF0F800FA3763 /* FirstLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEFC1C2ADBF0F800FA3763 /* FirstLaunchView.swift */; };
 		E8EEFC1F2ADC46A800FA3763 /* RepetitionCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEFC1E2ADC46A800FA3763 /* RepetitionCounter.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +68,13 @@
 			remoteGlobalIDString = E847CB662AA883D500C47E55;
 			remoteInfo = PoseFit;
 		};
+		E88C799D2B76D9C6001D3828 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E847CB5F2AA883D500C47E55 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E88C79912B76D9C4001D3828;
+			remoteInfo = "PoseFitWatch Watch App";
+		};
 		E8B23E752B1A9209009706FD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E847CB5F2AA883D500C47E55 /* Project object */;
@@ -67,6 +83,20 @@
 			remoteInfo = PoseFit;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E88C79A32B76D9C6001D3828 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				E88C799F2B76D9C6001D3828 /* PoseFitWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2B3BF7805A94DBDACAFD9131 /* Pods-PoseFit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoseFit.debug.xcconfig"; path = "Target Support Files/Pods-PoseFit/Pods-PoseFit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -94,9 +124,15 @@
 		E85171C22B5D52F400343622 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E85384BB2B12B81400A35C26 /* WeeklyChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChartView.swift; sourceTree = "<group>"; };
 		E85384BD2B12BC1400A35C26 /* WorkoutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutData.swift; sourceTree = "<group>"; };
+		E859DF712B77FB3B0067C9EE /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
 		E86101C72AF7AA3A0092D815 /* ExerciseAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseAnalyzer.swift; sourceTree = "<group>"; };
 		E870EA042B14E2F100E91C78 /* MonthlyChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyChartView.swift; sourceTree = "<group>"; };
 		E871651E2AB9A07000C84E14 /* WorkoutLaunchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLaunchCardView.swift; sourceTree = "<group>"; };
+		E88C79922B76D9C4001D3828 /* PoseFitWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PoseFitWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E88C79942B76D9C4001D3828 /* PoseFitWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseFitWatchApp.swift; sourceTree = "<group>"; };
+		E88C79962B76D9C4001D3828 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E88C79982B76D9C6001D3828 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E88C799B2B76D9C6001D3828 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E8B211E22B140FC9008E9CFD /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
 		E8B23E712B1A9209009706FD /* PoseFitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoseFitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8B23E732B1A9209009706FD /* PoseFitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseFitTests.swift; sourceTree = "<group>"; };
@@ -120,6 +156,12 @@
 		E8DD4CBD2B246C0B00C95251 /* squat.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = squat.gif; path = Assets.xcassets/squat.gif; sourceTree = "<group>"; };
 		E8DEFC982B122CDF0030DEEE /* PoseGym.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PoseGym.xcdatamodel; sourceTree = "<group>"; };
 		E8DEFC9A2B122F680030DEEE /* WeeklySummaryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummaryCardView.swift; sourceTree = "<group>"; };
+		E8DFA6492B714C5300726481 /* PoseDetectionCoreML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectionCoreML.swift; sourceTree = "<group>"; };
+		E8DFA64B2B714E0D00726481 /* pose_detection.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = pose_detection.tflite; sourceTree = "<group>"; };
+		E8DFA64C2B714E0D00726481 /* pose_landmark_full.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = pose_landmark_full.tflite; sourceTree = "<group>"; };
+		E8DFA64D2B717A4B00726481 /* WorkoutSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionManager.swift; sourceTree = "<group>"; };
+		E8DFA6542B717DA700726481 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		E8DFA6562B717DA700726481 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E8EEFC1C2ADBF0F800FA3763 /* FirstLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchView.swift; sourceTree = "<group>"; };
 		E8EEFC1E2ADC46A800FA3763 /* RepetitionCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepetitionCounter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,6 +179,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				368C3C914B52E35CA02FFA91 /* Pods_PoseFit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E88C798F2B76D9C4001D3828 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +207,8 @@
 				E8D7636E2B17882C00D71349 /* MLKit.framework */,
 				539A6515AD94B5FA31A292B6 /* Pods_PoseFit.framework */,
 				40D8F2B12313497F17C570F6 /* Pods_PoseFitTests.framework */,
+				E8DFA6542B717DA700726481 /* WidgetKit.framework */,
+				E8DFA6562B717DA700726481 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -188,6 +239,7 @@
 				E847CB692AA883D500C47E55 /* PoseFit */,
 				E8B23E722B1A9209009706FD /* PoseFitTests */,
 				E81AD7242B221A2300CBDAFD /* PoseFitUITests */,
+				E88C79932B76D9C4001D3828 /* PoseFitWatch Watch App */,
 				E847CB682AA883D500C47E55 /* Products */,
 				5645F6FFC44E77B02C0F196F /* Pods */,
 				22D1F3C262C5D47096167B4D /* Frameworks */,
@@ -200,6 +252,7 @@
 				E847CB672AA883D500C47E55 /* PoseFit.app */,
 				E8B23E712B1A9209009706FD /* PoseFitTests.xctest */,
 				E81AD7232B221A2200CBDAFD /* PoseFitUITests.xctest */,
+				E88C79922B76D9C4001D3828 /* PoseFitWatch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +260,9 @@
 		E847CB692AA883D500C47E55 /* PoseFit */ = {
 			isa = PBXGroup;
 			children = (
+				E88C79A42B76DA47001D3828 /* VViews */,
+				E8DFA64B2B714E0D00726481 /* pose_detection.tflite */,
+				E8DFA64C2B714E0D00726481 /* pose_landmark_full.tflite */,
 				E85171C22B5D52F400343622 /* Info.plist */,
 				E85171C12B5D510400343622 /* PoseFitDebug.entitlements */,
 				E848F3ED2B247A550069A697 /* plank.jpeg */,
@@ -220,26 +276,17 @@
 				E847CB6A2AA883D500C47E55 /* PoseGymApp.swift */,
 				E847CB6E2AA883D600C47E55 /* Assets.xcassets */,
 				E847CB702AA883D600C47E55 /* Preview Content */,
-				E847CB7D2AA8847E00C47E55 /* InWorkoutView.swift */,
 				E8392CFA2B11310F00C6E83C /* Persistence.swift */,
 				E8C67E782AB43D4800743C41 /* CameraManager.swift */,
-				E8CF9A7B2AB9802000645DB1 /* SettingsView.swift */,
-				E8CF9A7D2AB9803200645DB1 /* HomeView.swift */,
-				E871651E2AB9A07000C84E14 /* WorkoutLaunchCardView.swift */,
 				E8CA80F12ABB927C0031CF04 /* Exercise.swift */,
-				E83138FA2ABC4772005544B0 /* ExerciseView.swift */,
 				E8409A1C2AC087DB005CF66D /* PoseDetection.swift */,
 				E8EEFC1C2ADBF0F800FA3763 /* FirstLaunchView.swift */,
 				E8EEFC1E2ADC46A800FA3763 /* RepetitionCounter.swift */,
-				E8070BEE2B0F9D7F0079B632 /* AnalyticsView.swift */,
-				E8DEFC9A2B122F680030DEEE /* WeeklySummaryCardView.swift */,
-				E85384BB2B12B81400A35C26 /* WeeklyChartView.swift */,
 				E85384BD2B12BC1400A35C26 /* WorkoutData.swift */,
 				E8B211E22B140FC9008E9CFD /* NavigationCoordinator.swift */,
 				E86101C72AF7AA3A0092D815 /* ExerciseAnalyzer.swift */,
-				E870EA042B14E2F100E91C78 /* MonthlyChartView.swift */,
-				E8D8F2AD2B2CA9E70056AF96 /* FinishWorkoutView.swift */,
-				E84AC1002B2CF22A0072CC17 /* WorkoutDetailView.swift */,
+				E8DFA6492B714C5300726481 /* PoseDetectionCoreML.swift */,
+				E8DFA64D2B717A4B00726481 /* WorkoutSessionManager.swift */,
 			);
 			path = PoseFit;
 			sourceTree = "<group>";
@@ -250,6 +297,44 @@
 				E847CB712AA883D600C47E55 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E88C79932B76D9C4001D3828 /* PoseFitWatch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				E88C79942B76D9C4001D3828 /* PoseFitWatchApp.swift */,
+				E859DF712B77FB3B0067C9EE /* WatchConnectivityManager.swift */,
+				E88C79962B76D9C4001D3828 /* ContentView.swift */,
+				E88C79982B76D9C6001D3828 /* Assets.xcassets */,
+				E88C799A2B76D9C6001D3828 /* Preview Content */,
+			);
+			path = "PoseFitWatch Watch App";
+			sourceTree = "<group>";
+		};
+		E88C799A2B76D9C6001D3828 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E88C799B2B76D9C6001D3828 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E88C79A42B76DA47001D3828 /* VViews */ = {
+			isa = PBXGroup;
+			children = (
+				E8CF9A7B2AB9802000645DB1 /* SettingsView.swift */,
+				E8070BEE2B0F9D7F0079B632 /* AnalyticsView.swift */,
+				E8DEFC9A2B122F680030DEEE /* WeeklySummaryCardView.swift */,
+				E8D8F2AD2B2CA9E70056AF96 /* FinishWorkoutView.swift */,
+				E871651E2AB9A07000C84E14 /* WorkoutLaunchCardView.swift */,
+				E870EA042B14E2F100E91C78 /* MonthlyChartView.swift */,
+				E84AC1002B2CF22A0072CC17 /* WorkoutDetailView.swift */,
+				E8CF9A7D2AB9803200645DB1 /* HomeView.swift */,
+				E85384BB2B12B81400A35C26 /* WeeklyChartView.swift */,
+				E83138FA2ABC4772005544B0 /* ExerciseView.swift */,
+				E847CB7D2AA8847E00C47E55 /* InWorkoutView.swift */,
+			);
+			path = VViews;
 			sourceTree = "<group>";
 		};
 		E8B23E722B1A9209009706FD /* PoseFitTests */ = {
@@ -329,14 +414,33 @@
 				E847CB652AA883D500C47E55 /* Resources */,
 				F05A2103AA836B6A71096116 /* [CP] Embed Pods Frameworks */,
 				A5665B9C9BA495A8148315D4 /* [CP] Copy Pods Resources */,
+				E88C79A32B76D9C6001D3828 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E88C799E2B76D9C6001D3828 /* PBXTargetDependency */,
+			);
+			name = PoseFit;
+			productName = PoseGym;
+			productReference = E847CB672AA883D500C47E55 /* PoseFit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E88C79912B76D9C4001D3828 /* PoseFitWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E88C79A02B76D9C6001D3828 /* Build configuration list for PBXNativeTarget "PoseFitWatch Watch App" */;
+			buildPhases = (
+				E88C798E2B76D9C4001D3828 /* Sources */,
+				E88C798F2B76D9C4001D3828 /* Frameworks */,
+				E88C79902B76D9C4001D3828 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = PoseFit;
-			productName = PoseGym;
-			productReference = E847CB672AA883D500C47E55 /* PoseFit.app */;
+			name = "PoseFitWatch Watch App";
+			productName = "PoseFitWatch Watch App";
+			productReference = E88C79922B76D9C4001D3828 /* PoseFitWatch Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E8B23E702B1A9209009706FD /* PoseFitTests */ = {
@@ -369,7 +473,7 @@
 					New,
 					"New-1",
 				);
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					E81AD7222B221A2200CBDAFD = {
@@ -379,6 +483,9 @@
 					E847CB662AA883D500C47E55 = {
 						CreatedOnToolsVersion = 15.0;
 						LastSwiftMigration = 1500;
+					};
+					E88C79912B76D9C4001D3828 = {
+						CreatedOnToolsVersion = 15.2;
 					};
 					E8B23E702B1A9209009706FD = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -402,6 +509,7 @@
 				E847CB662AA883D500C47E55 /* PoseFit */,
 				E8B23E702B1A9209009706FD /* PoseFitTests */,
 				E81AD7222B221A2200CBDAFD /* PoseFitUITests */,
+				E88C79912B76D9C4001D3828 /* PoseFitWatch Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -424,6 +532,15 @@
 				E847CB6F2AA883D600C47E55 /* Assets.xcassets in Resources */,
 				E82E840A2B238F3000E2EAD3 /* pushup.gif in Resources */,
 				E8DD4CBC2B246BFE00C95251 /* situp.gif in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E88C79902B76D9C4001D3828 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E88C799C2B76D9C6001D3828 /* Preview Assets.xcassets in Resources */,
+				E88C79992B76D9C6001D3828 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,6 +660,7 @@
 				E8EEFC1D2ADBF0F800FA3763 /* FirstLaunchView.swift in Sources */,
 				E8EEFC1F2ADC46A800FA3763 /* RepetitionCounter.swift in Sources */,
 				E8392CFB2B11310F00C6E83C /* Persistence.swift in Sources */,
+				E8DFA64A2B714C5300726481 /* PoseDetectionCoreML.swift in Sources */,
 				E8B211E32B140FC9008E9CFD /* NavigationCoordinator.swift in Sources */,
 				E8CF9A9C2AB9947200645DB1 /* UIView+Extensions.swift in Sources */,
 				E8DEFC992B122CDF0030DEEE /* PoseGym.xcdatamodeld in Sources */,
@@ -556,12 +674,24 @@
 				E8CF9A982AB9947200645DB1 /* CustomTabBarItem.swift in Sources */,
 				E8CF9A992AB9947200645DB1 /* CustomTabButton.swift in Sources */,
 				E8CF9A9D2AB9947200645DB1 /* UITabBar+Extensions.swift in Sources */,
+				E84D6BF92B7928800037B36A /* WatchConnectivityManager.swift in Sources */,
 				E8070BEF2B0F9D7F0079B632 /* AnalyticsView.swift in Sources */,
 				E847CB6B2AA883D500C47E55 /* PoseGymApp.swift in Sources */,
+				E8DFA64E2B717A4B00726481 /* WorkoutSessionManager.swift in Sources */,
 				E8409A1D2AC087DB005CF66D /* PoseDetection.swift in Sources */,
 				E870EA052B14E2F100E91C78 /* MonthlyChartView.swift in Sources */,
 				E8CA80F02ABB57040031CF04 /* UIUtilities.swift in Sources */,
 				E8CF9A9B2AB9947200645DB1 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E88C798E2B76D9C4001D3828 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E88C79972B76D9C4001D3828 /* ContentView.swift in Sources */,
+				E859DF722B77FB3B0067C9EE /* WatchConnectivityManager.swift in Sources */,
+				E88C79952B76D9C4001D3828 /* PoseFitWatchApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +710,11 @@
 			isa = PBXTargetDependency;
 			target = E847CB662AA883D500C47E55 /* PoseFit */;
 			targetProxy = E81AD7292B221A2300CBDAFD /* PBXContainerItemProxy */;
+		};
+		E88C799E2B76D9C6001D3828 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E88C79912B76D9C4001D3828 /* PoseFitWatch Watch App */;
+			targetProxy = E88C799D2B76D9C6001D3828 /* PBXContainerItemProxy */;
 		};
 		E8B23E762B1A9209009706FD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -767,6 +902,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2B3BF7805A94DBDACAFD9131 /* Pods-PoseFit.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = (
 					"$(ARCHS_STANDARD)",
 					x86_64,
@@ -842,6 +978,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DF46E46C06B0567F8E0B1E39 /* Pods-PoseFit.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = (
 					"$(ARCHS_STANDARD)",
 					x86_64,
@@ -907,6 +1044,70 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E88C79A12B76D9C6001D3828 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PoseFitWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = D5G8UXEXSK;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PoseFitWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = kiss.roland.PoseFit;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kiss.roland.PoseFit.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.2;
+			};
+			name = Debug;
+		};
+		E88C79A22B76D9C6001D3828 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PoseFitWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = D5G8UXEXSK;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PoseFitWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = kiss.roland.PoseFit;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kiss.roland.PoseFit.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.2;
 			};
 			name = Release;
 		};
@@ -977,6 +1178,15 @@
 			buildConfigurations = (
 				E847CB7B2AA883D600C47E55 /* Debug */,
 				E847CB7C2AA883D600C47E55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E88C79A02B76D9C6001D3828 /* Build configuration list for PBXNativeTarget "PoseFitWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E88C79A12B76D9C6001D3828 /* Debug */,
+				E88C79A22B76D9C6001D3828 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

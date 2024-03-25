@@ -7,7 +7,19 @@
 		<key>PoseFitTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>26</integer>
+			<integer>1</integer>
+		</dict>
+		<key>PoseFitWatch Watch App.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>33</integer>
+		</dict>
+		<key>PoseFitWatchOSExtension.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>32</integer>
 		</dict>
 		<key>PoseGym.xcscheme_^#shared#^_</key>
 		<dict>
@@ -22,7 +34,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>E88C79912B76D9C4001D3828</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E8C63FC22B18ADEF003DAD6D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E8DFA6522B717DA700726481</key>
 		<dict>
 			<key>primary</key>
 			<true/>
